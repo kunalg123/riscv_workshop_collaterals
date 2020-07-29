@@ -1,8 +1,8 @@
-#riscv64-unknown-elf-g++ -mabi=ilp32 -march=rv32im -MD -Os -Wall -std=c++11   -c -o firmware.o firmware.cc
-riscv64-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o hello.o hello.c
+riscv64-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o 1to9_custom.o 1to9_custom.c 
+riscv64-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o load.o load.S
+
 riscv64-unknown-elf-gcc -c -mabi=ilp32 -march=rv32im -o syscalls.o syscalls.c
-#riscv64-unknown-elf-gcc -mabi=ilp32 -march=rv32im -Wl,--gc-sections -o firmware.elf firmware.o syscalls.o -T ../../firmware/riscv.ld -lstdc++
-riscv64-unknown-elf-gcc -mabi=ilp32 -march=rv32im -Wl,--gc-sections -o firmware.elf hello.o syscalls.o -T riscv.ld -lstdc++
+riscv64-unknown-elf-gcc -mabi=ilp32 -march=rv32im -Wl,--gc-sections -o firmware.elf load.o 1to9_custom.o syscalls.o -T riscv.ld -lstdc++
 chmod -x firmware.elf
 riscv64-unknown-elf-gcc -mabi=ilp32 -march=rv32im -nostdlib -o start.elf start.S -T start.ld -lstdc++
 chmod -x start.elf
